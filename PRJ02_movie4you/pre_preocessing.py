@@ -84,8 +84,9 @@ for sentence in df.reviews:
     cleaned_sentence = ' '.join(words)
     cleaned_sentences.append(cleaned_sentence)
 
+# 7. dataframe 및 csv 파일로 저장
 df['cleaned_sentences'] = cleaned_sentences
-print(df.head())
+# print(df.head())
 
 df = df[['titles', 'cleaned_sentences']]
 print(df.info())
