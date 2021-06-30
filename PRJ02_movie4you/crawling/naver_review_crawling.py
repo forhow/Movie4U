@@ -125,7 +125,7 @@ try:
 
                                         # backup : 크롤링 성공시마다 파일에 직접 추가
                                         append_data = {'years': year, 'titles': title, 'reviews': review}
-                                        with open('./reviews_{}.csv'.format(year), 'a', encoding='utf-8', newline='') as save:
+                                        with open('./reviews_{}_backup.csv'.format(year), 'a', encoding='utf-8', newline='') as save:
                                             fieldnames = ['years', 'titles', 'reviews']
                                             writer = csv.DictWriter(save, fieldnames=fieldnames)
                                             writer.writerow(append_data)
