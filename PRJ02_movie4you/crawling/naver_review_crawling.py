@@ -90,7 +90,7 @@ try:
                     review_len = driver.find_element_by_xpath(review_len_xpath).text
                     review_len = int(review_len.replace(',',''))
 
-                    # 리뷰개수를 100개로 제한
+                    # 리뷰개수를 50개로 제한
                     if review_len > 50:
                         review_len = 50
 
@@ -165,7 +165,12 @@ except:
 finally:
     driver.close()
 
-
+'''
+    수정 필요사항
+    
+    - 영화별 / 페이지별로 저장되도록 수정 권고 -> 현재 리뷰별로 백업 저장
+    - years column 제거 -> 기 진행된 파일과의 일관성 위해 유지
+'''
 
 
 
