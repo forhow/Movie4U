@@ -31,6 +31,7 @@ from selenium.common.exceptions import NoSuchElementException
 import pandas as pd
 import requests
 import time
+import csv
 
 
 # 'TEST'
@@ -87,7 +88,11 @@ try:
                     # 리뷰 개수 확인 및 리뷰 페이지 계산
                     review_len_xpath = '//*[@id="reviewTab"]/div/div/div[2]/span/em'
                     review_len = driver.find_element_by_xpath(review_len_xpath).text
-                    review_len = int(review_len)
+                    review_len = int(review_len.replace(',',''))
+
+                    # 리뷰개수를 100개로 제한
+                    if review_len > 50:
+                        review_len = 50
 
                     try:
                         # 리뷰 페이지 선택
@@ -107,8 +112,25 @@ try:
                                         # 영화제목 및 리뷰 크롤링
                                         review_xpath = '//*[@id="content"]/div[1]/div[4]/div[1]/div[4]'
                                         review = driver.find_element_by_xpath(review_xpath).text
+
+                                        '''
+                                            크롤링 수행 시 결과를 2가지 방법으로 저장.
+                                            
+                                            backup 선택하지 않을 경우 Line 126~131 주석처리 후 실행 바랍니다.
+                                        '''
+
+                                        # main : 리스트에 내용 추가 시킨 후 한번에 Dataframe과 파일로 저장
                                         titles.append(title)
                                         reviews.append(review)
+
+                                        # backup : 크롤링 성공시마다 파일에 직접 추가
+                                        append_data = {'years': year, 'titles': title, 'reviews': review}
+                                        with open('./reviews_{}.csv'.format(year), 'a', encoding='utf-8', newline='') as save:
+                                            fieldnames = ['years', 'titles', 'reviews']
+                                            writer = csv.DictWriter(save, fieldnames=fieldnames)
+                                            writer.writerow(append_data)
+
+
                                         driver.back()
                                         time.sleep(1)
                                     except:
@@ -129,11 +151,11 @@ try:
                 print('NoSuchElementException')
         print(len(reviews))
 
+    # main : 리스트에 내용 추가 시킨 후 한번에 Dataframe과 파일로 저장
     # 크롤링 결과 Dataframe 생성
     df_review = pd.DataFrame({'titles':titles, 'reviews':reviews})
     df_review['years'] = year
     print(df_review.head(20))
-
     # CSV 파일 저장
     df_review.to_csv('./reviews_{}.csv'.format(year))
 
