@@ -16,8 +16,8 @@ one_sentences = []
 
 for title in df['titles'].unique():
     temp = df[df['titles']==title]['cleaned_sentences']
-    print(title)
-    print(temp)
+    # print(title)
+    # print(temp)
     one_sentence = ' '.join(temp)
     one_sentences.append(one_sentence)
 
