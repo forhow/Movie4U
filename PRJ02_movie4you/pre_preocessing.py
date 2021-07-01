@@ -22,6 +22,7 @@ import pandas as pd
 import numpy as np
 import re
 
+
 print('전처리 수행할 파일 이름과 년도 확인')
 print('ex) reviews_2021.csv -> 2021')
 year = int(input('대상 파일의 연도 입력 : ' ))
@@ -39,9 +40,13 @@ cleaned_sentences = []
 
 # 불용어 리스트(set)
 stopwords = pd.read_csv('./crawling/stopwords.csv', index_col=0)
-movie_stopwords = '영화 작품 배우 주인공 주연 조연 감독 연출 극본 시나리오'.split()
+movie_stopwords = ['관객', '작품', '받다', '촬영', '크다',
+                   '리뷰', '개봉', '스크린', '출연', '개봉',
+                   '극장', '평가', '출연', '평점', '영화',
+                   '작품', '배우', '주인공', '주연', '조연',
+                   '감독', '연출', '극본', '시나리오', '관객', '개인' ]
 stopwords_list = list(stopwords.stopword) + movie_stopwords
-stopwords_list = set(stopwords_list)
+# stopwords_list = set(stopwords_list)
 # print(len(stopwords_list))
 # print(type(stopwords), len(stopwords), stopwords)
 
@@ -58,11 +63,11 @@ for sentence in df.reviews:
     count += 1
     if count % 10 == 0:
         print('.', end='')
-    if count % 100 == 0:
-        print('')
+    if count % 300 == 0:
+        print(' {}'.format(count))
 
     # 2. alphabet, number, symbol 등 제거
-    sentence = re.sub('[^가-힣 | ' ']', '', sentence)
+    sentence = re.sub('[^가-힣 ]', '', sentence)
 
     # 3. tokenization
     token = okt.pos(sentence, stem=True)
