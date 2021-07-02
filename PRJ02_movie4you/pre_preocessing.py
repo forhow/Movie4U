@@ -44,7 +44,9 @@ movie_stopwords = ['관객', '작품', '받다', '촬영', '크다',
                    '리뷰', '개봉', '스크린', '출연', '개봉',
                    '극장', '평가', '출연', '평점', '영화',
                    '작품', '배우', '주인공', '주연', '조연',
-                   '감독', '연출', '극본', '시나리오', '관객', '개인' ]
+                   '감독', '연출', '극본', '시나리오', '관객',
+                   '개인', '관람', '제작', '기록', '제작비',
+                   '투입', '수익', '예고편', ]
 stopwords_list = list(stopwords.stopword) + movie_stopwords
 # stopwords_list = set(stopwords_list)
 # print(len(stopwords_list))
