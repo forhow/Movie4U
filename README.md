@@ -15,6 +15,6 @@ Process
   - 1st step File : pre_preocessing.py
   - 2nd step File : preprocess_one_sentence.py
   - Description 
-    > 1st step : alphabet/숫자/특수문자 등 제거, 형태소 분리(동사/명사/형용사 추출), 
+    ` 1st step : alphabet/숫자/특수문자 등 제거, 형태소 분리(동사/명사/형용사 추출), 
                 불용어 제거, 분리된 문장 결합, 1차 파일 저장
-    > 2nd step : 
+    ` 2nd step : 전체 리뷰를 영화 하나당 하나의 문장으로 병합
